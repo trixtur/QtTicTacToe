@@ -16,6 +16,145 @@ TicTacToe::~TicTacToe()
     delete ui;
 }
 
+bool TicTacToe::hasWinner()
+{
+    //Check for 'X' win
+    if(ui->TopLeft_Button->text().contains("x",Qt::CaseInsensitive))
+    {
+        if(ui->TopMiddle_Button->text().contains("x",Qt::CaseInsensitive))
+            if(ui->TopRight_Button->text().contains("x",Qt::CaseInsensitive))
+            {
+                winner = 'X';
+                return true;
+            }
+        if(ui->MiddleLeft_Button->text().contains("x",Qt::CaseInsensitive))
+            if(ui->BottomLeft_Button->text().contains("x",Qt::CaseInsensitive))
+            {
+                winner = 'X';
+                return true;
+            }
+        if(ui->MiddleMiddle_Button->text().contains("x",Qt::CaseInsensitive))
+            if(ui->BottomRight_Button->text().contains("x",Qt::CaseInsensitive))
+            {
+                winner = 'X';
+                return true;
+            }
+    }
+    if(ui->TopMiddle_Button->text().contains("x",Qt::CaseInsensitive))
+    {
+        if(ui->MiddleMiddle_Button->text().contains("x",Qt::CaseInsensitive))
+            if(ui->BottomMiddle_Button->text().contains("x",Qt::CaseInsensitive))
+            {
+                winner = 'X';
+                return true;
+            }
+    }
+    if(ui->TopRight_Button->text().contains("x",Qt::CaseInsensitive))
+    {
+        if(ui->MiddleRight_Button->text().contains("x",Qt::CaseInsensitive))
+            if(ui->BottomRight_Button->text().contains("x",Qt::CaseInsensitive))
+            {
+                winner = 'X';
+                return true;
+            }
+    }
+    if(ui->MiddleLeft_Button->text().contains("x",Qt::CaseInsensitive))\
+    {
+        if(ui->MiddleMiddle_Button->text().contains("x",Qt::CaseInsensitive))
+            if(ui->MiddleRight_Button->text().contains("x",Qt::CaseInsensitive))
+            {
+                winner = 'X';
+                return true;
+            }
+    }
+    if(ui->BottomLeft_Button->text().contains("x",Qt::CaseInsensitive))
+    {
+        if(ui->BottomMiddle_Button->text().contains("x",Qt::CaseInsensitive))
+            if(ui->BottomRight_Button->text().contains("x",Qt::CaseInsensitive))
+            {
+                winner = 'X';
+                return true;
+            }
+    }
+    if(ui->TopRight_Button->text().contains("x",Qt::CaseInsensitive))
+    {
+        if(ui->MiddleMiddle_Button->text().contains("x",Qt::CaseInsensitive))
+            if(ui->BottomLeft_Button->text().contains("x",Qt::CaseInsensitive))
+            {
+                winner = 'X';
+                return true;
+            }
+    }
+    //Check for 'O' win
+    if(ui->TopLeft_Button->text().contains("o",Qt::CaseInsensitive))
+    {
+        if(ui->TopMiddle_Button->text().contains("o",Qt::CaseInsensitive))
+            if(ui->TopRight_Button->text().contains("o",Qt::CaseInsensitive))
+            {
+                winner = 'O';
+                return true;
+            }
+        if(ui->MiddleLeft_Button->text().contains("o",Qt::CaseInsensitive))
+            if(ui->BottomLeft_Button->text().contains("o",Qt::CaseInsensitive))
+            {
+                winner = 'O';
+                return true;
+            }
+        if(ui->MiddleMiddle_Button->text().contains("o",Qt::CaseInsensitive))
+            if(ui->BottomRight_Button->text().contains("o",Qt::CaseInsensitive))
+            {
+                winner = 'O';
+                return true;
+            }
+    }
+    if(ui->TopMiddle_Button->text().contains("o",Qt::CaseInsensitive))
+    {
+        if(ui->MiddleMiddle_Button->text().contains("o",Qt::CaseInsensitive))
+            if(ui->BottomMiddle_Button->text().contains("o",Qt::CaseInsensitive))
+            {
+                winner = 'O';
+                return true;
+            }
+    }
+    if(ui->TopRight_Button->text().contains("o",Qt::CaseInsensitive))
+    {
+        if(ui->MiddleRight_Button->text().contains("o",Qt::CaseInsensitive))
+            if(ui->BottomRight_Button->text().contains("o",Qt::CaseInsensitive))
+            {
+                winner = 'O';
+                return true;
+            }
+    }
+    if(ui->MiddleLeft_Button->text().contains("o",Qt::CaseInsensitive))\
+    {
+        if(ui->MiddleMiddle_Button->text().contains("o",Qt::CaseInsensitive))
+            if(ui->MiddleRight_Button->text().contains("o",Qt::CaseInsensitive))
+            {
+                winner = 'O';
+                return true;
+            }
+    }
+    if(ui->BottomLeft_Button->text().contains("o",Qt::CaseInsensitive))
+    {
+        if(ui->BottomMiddle_Button->text().contains("o",Qt::CaseInsensitive))
+            if(ui->BottomRight_Button->text().contains("o",Qt::CaseInsensitive))
+            {
+                winner = 'O';
+                return true;
+            }
+    }
+    if(ui->TopRight_Button->text().contains("o",Qt::CaseInsensitive))
+    {
+        if(ui->MiddleMiddle_Button->text().contains("o",Qt::CaseInsensitive))
+            if(ui->BottomLeft_Button->text().contains("o",Qt::CaseInsensitive))
+            {
+                winner = 'O';
+                return true;
+            }
+    }
+    return false;
+}
+
 bool TicTacToe::isFull()
 {
     if(ui->TopLeft_Button->text().isEmpty())
@@ -89,6 +228,7 @@ void TicTacToe::Reset()
     connect(ui->BottomMiddle_Button,SIGNAL(pressed()),this,SLOT(PressBottomMiddle()));
     connect(ui->BottomRight_Button,SIGNAL(pressed()),this,SLOT(PressBottomRight()));
     is_X = true;
+    winner = 0;
 }
 
 void TicTacToe::RunButtonPress(QPushButton *b)
@@ -142,6 +282,18 @@ void TicTacToe::RunButtonPress(QPushButton *b)
         ui->BottomMiddle_Button = b;
     if(quad == 8)
         ui->BottomRight_Button = b;
+
+    if(hasWinner())
+    {
+        QMessageBox::Icon w = QMessageBox::Information;
+        QString s;
+        s.append(&winner);
+        s.append(" has won!");
+        QMessageBox *winner = new QMessageBox("Winner",s,w,0,DIALOG_OK_BUTTON,0,this,Qt::MSWindowsFixedSizeDialogHint);
+        winner->show();
+        connect(winner,SIGNAL(finished(int)),this,SLOT(MBoxClose(int)));
+        return;
+    }
 
     if(isFull())
     {

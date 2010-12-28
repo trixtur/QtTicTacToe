@@ -32,7 +32,9 @@ private:
     Ui::TicTacToe *ui;
     static const int DIALOG_OK_BUTTON = 1;
     bool is_X;
+    char winner;
     bool isFull();
+    bool hasWinner();
     bool initialSetup;
     void Reset();
     void RunButtonPress(QPushButton*);
