@@ -16,3 +16,6 @@ SOURCES += main.cpp\
 HEADERS  += tictactoe.h
 
 FORMS    += tictactoe.ui
+
+OTHER_FILES += \
+    LICENSE
