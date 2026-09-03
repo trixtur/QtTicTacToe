@@ -2,43 +2,32 @@
 #define TICTACTOE_H
 
 #include <QMainWindow>
-#include <QMessageBox>
+#include <QPushButton>
+#include "game.h"
+#include "computerplayer.h"
 #include "ui_tictactoe.h"
-
-namespace Ui {
-    class TicTacToe;
-}
 
 class TicTacToe : public QMainWindow
 {
     Q_OBJECT
-
 public:
-    explicit TicTacToe(QWidget *parent = 0);
+    explicit TicTacToe(QWidget *parent = nullptr);
     ~TicTacToe();
+
 private slots:
-    void PressTopLeft();
-    void PressTopMiddle();
-    void PressTopRight();
-    void PressMiddleLeft();
-    void PressMiddleMiddle();
-    void PressMiddleRight();
-    void PressBottomLeft();
-    void PressBottomMiddle();
-    void PressBottomRight();
-    void MBoxClose(int);
+    void handleMove();
+    void resetGame();
 
 private:
     Ui::TicTacToe *ui;
-    static const int DIALOG_OK_BUTTON = 1;
-    bool is_X;
-    char winner;
-    bool isFull();
-    bool hasWinner();
-    bool initialSetup;
-    void Reset();
-    void RunButtonPress(QPushButton*);
-    void SetButton(QPushButton**, const QString&);
+    Game game_;
+    bool computerMode_;
+    ComputerPlayer::Difficulty difficulty_;
+    QPushButton *buttons_[9];
+    void updateBoard();
+    void showResult(Game::MoveResult result);
+    void computerMove();
+    void selectComputerMode(ComputerPlayer::Difficulty difficulty);
 };
 
 #endif // TICTACTOE_H
